@@ -30,3 +30,61 @@ else
     done
 fi
 ```
+
+# Installing
+
+```bash
+go get github.com/jamiemccrindle/gitpathchanges
+```
+
+# Commands
+
+## match
+
+List which matching files and directories have changed between 2 commits.
+
+```
+NAME:
+   git-path-changes match - List which matching files and directories have changed between 2 commits
+
+USAGE:
+   git-path-changes match [command options] <commit1> <commit2>
+
+OPTIONS:
+   --path value, -p value   The path to your git repository (default: ".")
+   --match value, -m value  The files or directories to check for changes
+   --help, -h               show help (default: false)
+```
+
+## has-matches
+
+Return success if matching files have changed between 2 commits otherwise fail. Useful to test whether a file or directory has changed between commits.
+
+```
+NAME:
+   git-path-changes has-matches - Return success if matching files have changed between 2 commits otherwise fail
+
+USAGE:
+   git-path-changes has-matches [command options] <commit1> <commit2>
+
+OPTIONS:
+   --path value, -p value   The path to your git repository (default: ".")
+   --match value, -m value  The files or directories to check for changes
+   --help, -h               show help (default: false)
+```
+
+## directories
+
+List all files that have changed between 2 commits.
+
+```
+NAME:
+   git-path-changes directories - List all files that have changed between 2 commits
+
+USAGE:
+   git-path-changes directories [command options] <commit1> <commit2>
+
+OPTIONS:
+   --path value, -p value  The path to your git repository (default: ".")
+   --help, -h              show help (default: false)
+```
