@@ -19,20 +19,27 @@ func main() {
 				Value:   ".",
 			},
 			&cli.StringSliceFlag{
-				Name:    "directories",
-				Aliases: []string{"d"},
-				Usage:   "The directories to check for changes",
+				Name:     "match",
+				Aliases:  []string{"m"},
+				Usage:    "The files or directories to check for changes",
+				Required: true,
 			},
 		},
 		Action: func(c *cli.Context) error {
 			if c.NArg() != 2 {
 				return fmt.Errorf("usage: gitpathchanges [options] commit1 commit2")
 			}
-			directories := c.StringSlice("directories")
+			matches := c.StringSlice("match")
 			commitRef1 := c.Args().Get(0)
 			commitRef2 := c.Args().Get(1)
 			path := c.String("path")
-			fmt.Println(gitpathchanges.Files(path, directories, commitRef1, commitRef2))
+			result, err := gitpathchanges.Files(path, matches, commitRef1, commitRef2)
+			if err != nil {
+				return err
+			}
+			for _, line := range *result {
+				fmt.Println(line)
+			}
 			return nil
 		},
 	}
