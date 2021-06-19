@@ -37,6 +37,8 @@ fi
 go get github.com/jamiemccrindle/gitpathchanges
 ```
 
+Or download the latest release from https://github.com/jamiemccrindle/gitpathchanges/releases
+
 # Commands
 
 ## match
