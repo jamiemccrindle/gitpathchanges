@@ -24,16 +24,10 @@ gitpathchanges: cmd/git-path-changes/* pkg/*
 	go build -ldflags "-X main.version=${VERSION} -X main.commit=${COMMIT} ${BUILDLDFLAGS}" ${BUILDARGS} \
 		-o ${BUILDOUTPREFIX}git-path-changes cmd/git-path-changes/main.go
 
-githaspathchanged: cmd/git-has-path-changed/* pkg/*
-	go build -ldflags "-X main.version=${VERSION} -X main.commit=${COMMIT} ${BUILDLDFLAGS}" ${BUILDARGS} \
-		-o ${BUILDOUTPREFIX}git-has-path-changed cmd/git-has-path-changed/main.go
-
 clean:
 	rm ${BUILDOUTPREFIX}git-path-changes* 2> /dev/null || exit 0
-	rm ${BUILDOUTPREFIX}git-has-path-changed* 2> /dev/null || exit 0
 
 build: gitpathchanges
 
 install: build
 	cp ${BUILDOUTPREFIX}git-path-changes* /usr/local/bin
-	cp ${BUILDOUTPREFIX}git-has-path-changed* /usr/local/bin
