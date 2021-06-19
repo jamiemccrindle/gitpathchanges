@@ -31,4 +31,4 @@ jobs:
           title: "Development Build"
           files: |
             git-path-changes
-            LICENSE.txt
+            LICENSE.md
