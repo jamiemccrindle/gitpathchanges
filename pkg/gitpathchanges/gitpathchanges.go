@@ -9,15 +9,6 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/object"
 )
 
-func dirname(path string) string {
-	lastIndex := strings.LastIndex(path, "/")
-	if lastIndex > 0 {
-		return path[0:lastIndex]
-	} else {
-		return ""
-	}
-}
-
 func getCommit(r *git.Repository, ref string) (*object.Commit, error) {
 	hash := plumbing.NewHash(ref)
 	commit, err := r.CommitObject(hash)
