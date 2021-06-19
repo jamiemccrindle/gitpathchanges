@@ -60,7 +60,7 @@ func Files(path string, pathsToMatch []string, commitRef1 string, commitRef2 str
 	}
 	result := []string{}
 	if len(pathsToMatch) == 0 {
-		for k, _ := range changedPaths {
+		for k := range changedPaths {
 			result = append(result, k)
 		}
 	} else {
