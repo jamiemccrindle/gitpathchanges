@@ -26,4 +26,4 @@ jobs:
           prerelease: false
           files: |
             git-path-changes
-            LICENSE.md
+            LICENSE
