@@ -128,7 +128,7 @@ func main() {
 			{
 				Name:      "directories",
 				ArgsUsage: "<commit1> <commit2>",
-				Usage:     "List all files that have changed between 2 commits",
+				Usage:     "List all directories that have changed between 2 commits",
 				Flags: []cli.Flag{
 					&cli.StringFlag{
 						Name:    "path",

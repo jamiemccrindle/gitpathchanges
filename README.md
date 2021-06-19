@@ -77,11 +77,11 @@ OPTIONS:
 
 ## directories
 
-List all files that have changed between 2 commits.
+List all directories that have changed between 2 commits.
 
 ```
 NAME:
-   git-path-changes directories - List all files that have changed between 2 commits
+   git-path-changes directories - List all directories that have changed between 2 commits
 
 USAGE:
    git-path-changes directories [command options] <commit1> <commit2>
