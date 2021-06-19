@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	git "github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
 )
@@ -19,8 +19,11 @@ func Dirname(path string) string {
 }
 
 func getCommit(r *git.Repository, ref string) (*object.Commit, error) {
-	hash := plumbing.NewHash(ref)
-	commit, err := r.CommitObject(hash)
+	hash, err := r.ResolveRevision(plumbing.Revision(ref))
+	if err != nil {
+		return nil, err
+	}
+	commit, err := r.CommitObject(*hash)
 	if err != nil {
 		return nil, fmt.Errorf("commit could not be found")
 	}
