@@ -17,6 +17,7 @@ jobs:
       - name: "Build & test"
         run: |
           make build
+          make test
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -26,3 +27,4 @@ jobs:
           title: "Development Build"
           files: |
             git-path-changes
+            LICENSE.txt
