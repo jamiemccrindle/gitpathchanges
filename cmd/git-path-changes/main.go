@@ -24,7 +24,7 @@ func main() {
 		},
 		Commands: []*cli.Command{
 			{
-				Name:      "changes",
+				Name:      "match",
 				Usage:     "List which matching files and directories have changed between 2 commits",
 				ArgsUsage: "<commit1> <commit2>",
 				Flags: []cli.Flag{
@@ -61,7 +61,7 @@ func main() {
 				},
 			},
 			{
-				Name:      "has-changed",
+				Name:      "has-matches",
 				ArgsUsage: "<commit1> <commit2>",
 				Usage:     "Return success if matching files have changed between 2 commits otherwise fail",
 				Flags: []cli.Flag{
@@ -96,12 +96,77 @@ func main() {
 					return nil
 				},
 			},
+			{
+				Name:      "files",
+				ArgsUsage: "<commit1> <commit2>",
+				Usage:     "List all files that have changed between 2 commits",
+				Flags: []cli.Flag{
+					&cli.StringFlag{
+						Name:    "path",
+						Aliases: []string{"p"},
+						Usage:   "The path to your git repository",
+						Value:   ".",
+					},
+				},
+				Action: func(c *cli.Context) error {
+					if c.NArg() != 2 {
+						return fmt.Errorf("usage: gitpathchanges [options] commit1 commit2")
+					}
+					commitRef1 := c.Args().Get(0)
+					commitRef2 := c.Args().Get(1)
+					path := c.String("path")
+					result, err := gitpathchanges.Files(path, []string{}, commitRef1, commitRef2)
+					if err != nil {
+						return err
+					}
+					for _, line := range *result {
+						fmt.Println(line)
+					}
+					return nil
+				},
+			},
+			{
+				Name:      "directories",
+				ArgsUsage: "<commit1> <commit2>",
+				Usage:     "List all files that have changed between 2 commits",
+				Flags: []cli.Flag{
+					&cli.StringFlag{
+						Name:    "path",
+						Aliases: []string{"p"},
+						Usage:   "The path to your git repository",
+						Value:   ".",
+					},
+				},
+				Action: func(c *cli.Context) error {
+					if c.NArg() != 2 {
+						return fmt.Errorf("usage: gitpathchanges [options] commit1 commit2")
+					}
+					commitRef1 := c.Args().Get(0)
+					commitRef2 := c.Args().Get(1)
+					path := c.String("path")
+					result, err := gitpathchanges.Files(path, []string{}, commitRef1, commitRef2)
+					if err != nil {
+						return err
+					}
+					directories := make(map[string]struct{})
+					for _, item := range *result {
+						directories[gitpathchanges.Dirname(item)] = struct{}{}
+					}
+					for directory := range directories {
+						fmt.Println(directory)
+					}
+					return nil
+				},
+			},
 		},
 	}
 
 	err := app.Run(os.Args)
 	if err != nil {
+		if err.Error() == noResultsError {
+			os.Exit(1)
+			return
+		}
 		log.Fatal(err)
 	}
-
 }
