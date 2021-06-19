@@ -20,8 +20,8 @@ COMMIT=<commit_of_live_deployment>
 if git-path-changes has-matches -m infra $COMMIT1 HEAD
 then
     # deploy infra
-    # deploy app1
-    # deploy app2
+    # deploy app-a
+    # deploy app-b
 else
     apps=$(git-path-changes matches -m app-a -m app-b $COMMIT1 HEAD)
     for app in apps
